@@ -13,7 +13,7 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Tailwind CSS with custom executive theme configuration -->
+    <!-- Tailwind CSS with strict brand color palette configuration -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -22,14 +22,12 @@
                 extend: {
                     colors: {
                         brand: {
-                            base: '#0C0209',        /* Deep Charcoal Dark Base */
-                            surface: '#150310',     /* Elevated Card Surface */
-                            surfaceHover: '#1E0518',/* Hover Card Surface */
-                            plum: '#45062E',        /* Primary Brand Plum */
-                            magenta: '#7F055F',     /* Accent Magenta */
-                            pink: '#E5A4CB',        /* Warm Soft Accent */
-                            light: '#F8EFF4',       /* High Contrast Text */
-                            muted: '#C4A8B9'        /* Muted Body Text */
+                            crimson: '#45062E',     /* Deep Crimson Violet */
+                            plum: '#7F055F',        /* Royal Plum (Lighter Color 1) */
+                            blush: '#E5A4CB',       /* Blush Pop (Lighter Color 2) */
+                            plumDark: '#5E0346',    /* Rich Plum Accent */
+                            blushLight: '#FDF7FA',  /* Soft Pastel Card Background */
+                            blushDark: '#3A0226'    /* Deep Text Contrast */
                         }
                     },
                     fontFamily: {
@@ -43,107 +41,119 @@
     
     <style>
         body {
-            background-color: #0C0209;
-            color: #F8EFF4;
+            background-color: #7F055F;
+            color: #FFFFFF;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
         }
 
-        /* Executive Glass Surfaces */
-        .glass-header {
-            background: rgba(12, 2, 9, 0.85);
+        /* Slide View Section Block Styling */
+        .slide-section {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            scroll-margin-top: 4rem;
+        }
+
+        .slide-plum {
+            background-color: #7F055F;
+            color: #FFFFFF;
+        }
+
+        .slide-blush {
+            background-color: #E5A4CB;
+            color: #3A0226;
+        }
+
+        /* Executive Cards for Royal Plum Slides */
+        .card-plum {
+            background: rgba(69, 6, 46, 0.65);
+            border: 1px solid rgba(229, 164, 203, 0.3);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+        .card-plum:hover {
+            border-color: rgba(229, 164, 203, 0.7);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Executive Cards for Blush Pop Slides */
+        .card-blush {
+            background: #FFFFFF;
+            border: 1px solid rgba(127, 5, 95, 0.2);
+            color: #3A0226;
+            transition: all 0.3s ease;
+        }
+        .card-blush:hover {
+            border-color: #7F055F;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(127, 5, 95, 0.15);
+        }
+
+        /* Fixed Navigation Header */
+        .exec-nav {
+            background: rgba(127, 5, 95, 0.95);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(229, 164, 203, 0.12);
+            border-bottom: 1px solid rgba(229, 164, 203, 0.25);
         }
 
-        .exec-card {
-            background: #150310;
-            border: 1px solid rgba(229, 164, 203, 0.12);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .exec-card-hover:hover {
-            transform: translateY(-3px);
-            background: #1E0518;
-            border-color: rgba(229, 164, 203, 0.35);
-            box-shadow: 0 20px 40px -15px rgba(127, 5, 95, 0.35);
-        }
-
-        /* Elegant Gradient Texts */
-        .gradient-heading {
-            background: linear-gradient(135deg, #FFFFFF 0%, #F8EFF4 40%, #E5A4CB 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .gradient-accent {
-            background: linear-gradient(135deg, #E5A4CB 0%, #FF9DE2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Ambient Glow Highlights */
-        .ambient-glow-plum {
-            background: radial-gradient(circle, rgba(127, 5, 95, 0.22) 0%, rgba(12, 2, 9, 0) 70%);
-        }
-
-        .ambient-glow-pink {
-            background: radial-gradient(circle, rgba(229, 164, 203, 0.12) 0%, rgba(12, 2, 9, 0) 70%);
-        }
-
-        /* Toast Popup */
+        /* Custom Toast Popup */
         #toast {
             visibility: hidden;
             min-width: 280px;
             transform: translateY(100px);
             transition: all 0.4s ease-in-out;
         }
-
         #toast.show {
             visibility: visible;
             transform: translateY(0);
         }
     </style>
 </head>
-<body class="antialiased selection:bg-brand-magenta selection:text-white">
+<body class="antialiased selection:bg-brand-blush selection:text-brand-crimson">
 
     <!-- Navigation Bar -->
-    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-header" id="navbar">
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 exec-nav" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="py-4 flex items-center justify-between">
+            <nav class="py-3.5 flex items-center justify-between">
                 
-                <!-- Brand Logo -->
-                <a href="#home" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-magenta to-brand-plum flex items-center justify-center font-heading font-bold text-white text-lg shadow-md group-hover:scale-105 transition-transform border border-brand-pink/30">
+                <!-- Brand Identity -->
+                <a href="#slide-1" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-brand-blush text-brand-crimson font-heading font-extrabold text-lg flex items-center justify-center shadow-md group-hover:scale-105 transition-transform border border-white/40">
                         OJ
                     </div>
                     <div>
                         <span class="font-heading font-bold text-base tracking-tight text-white block leading-none">Orifha Joan</span>
-                        <span class="text-[10px] text-brand-pink/80 font-semibold uppercase tracking-wider">THOMPSON (IHERETE)</span>
+                        <span class="text-[10px] text-brand-blush font-semibold uppercase tracking-wider">THOMPSON (IHERETE)</span>
                     </div>
                 </a>
 
                 <!-- Desktop Navigation Links -->
-                <div class="hidden lg:flex items-center space-x-8 text-xs font-semibold uppercase tracking-wider text-brand-muted">
-                    <a href="#about" class="hover:text-brand-pink transition-colors">About</a>
-                    <a href="#certifications" class="hover:text-brand-pink transition-colors">Certifications</a>
-                    <a href="#speaking" class="hover:text-brand-pink transition-colors">Keynotes & GSDC</a>
-                    <a href="#purposeos" class="hover:text-brand-pink transition-colors">PurposeOS</a>
-                    <a href="#insights" class="hover:text-brand-pink transition-colors">Insights</a>
-                    <a href="#contact" class="hover:text-brand-pink transition-colors">Contact</a>
+                <div class="hidden lg:flex items-center space-x-7 text-xs font-bold uppercase tracking-wider text-brand-blush/90">
+                    <a href="#slide-1" class="hover:text-white transition-colors">01. Home</a>
+                    <a href="#slide-2" class="hover:text-white transition-colors">02. Profile</a>
+                    <a href="#slide-3" class="hover:text-white transition-colors">03. Certifications</a>
+                    <a href="#slide-4" class="hover:text-white transition-colors">04. Speaking</a>
+                    <a href="#slide-5" class="hover:text-white transition-colors">05. PurposeOS</a>
+                    <a href="#slide-6" class="hover:text-white transition-colors">06. Insights</a>
+                    <a href="#slide-7" class="hover:text-white transition-colors">07. Contact</a>
                 </div>
 
                 <!-- Call To Action Button -->
                 <div class="hidden sm:flex items-center gap-3">
-                    <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-magenta to-brand-plum text-white font-semibold text-xs tracking-wide uppercase hover:brightness-110 transition-all shadow-lg shadow-brand-magenta/20 flex items-center gap-2 border border-brand-pink/20">
+                    <a href="#slide-7" class="px-5 py-2.5 rounded-xl bg-brand-blush text-brand-crimson font-bold text-xs uppercase tracking-wider hover:bg-white transition-all shadow-lg flex items-center gap-2 border border-white/20">
                         <span>Book Strategy Call</span>
                         <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </a>
                 </div>
 
                 <!-- Mobile Menu Toggle Button -->
-                <button id="mobile-menu-btn" class="lg:hidden text-white hover:text-brand-pink focus:outline-none p-2" aria-label="Toggle Navigation">
+                <button id="mobile-menu-btn" class="lg:hidden text-white hover:text-brand-blush focus:outline-none p-2" aria-label="Toggle Navigation">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
             </nav>
@@ -151,240 +161,201 @@
 
         <!-- Mobile Drawer -->
         <div id="mobile-menu" class="hidden lg:hidden max-w-7xl mx-auto px-4 pb-6">
-            <div class="exec-card rounded-2xl p-6 space-y-4 border border-brand-pink/20 bg-brand-surface shadow-2xl">
-                <a href="#about" class="mobile-nav-link block text-brand-light font-medium py-2 text-sm">About Profile</a>
-                <a href="#certifications" class="mobile-nav-link block text-brand-light font-medium py-2 text-sm">Certifications Vault</a>
-                <a href="#speaking" class="mobile-nav-link block text-brand-light font-medium py-2 text-sm">Keynotes & Speaking</a>
-                <a href="#purposeos" class="mobile-nav-link block text-brand-light font-medium py-2 text-sm">PurposeOS Venture</a>
-                <a href="#insights" class="mobile-nav-link block text-brand-light font-medium py-2 text-sm">Medium & Newsletter</a>
-                <a href="#contact" class="mobile-nav-link block text-brand-light font-medium py-2 text-sm">Contact Advisory</a>
-                <div class="pt-3 border-t border-white/10">
-                    <a href="#contact" class="mobile-nav-link w-full py-3 rounded-xl bg-gradient-to-r from-brand-magenta to-brand-plum text-center text-white font-semibold text-xs uppercase tracking-wider block">
-                        Schedule Consultation
-                    </a>
-                </div>
+            <div class="card-plum rounded-2xl p-6 space-y-3 bg-brand-crimson border border-brand-blush/40 shadow-2xl">
+                <a href="#slide-1" class="mobile-nav-link block text-white font-medium text-sm">01. Executive Intro</a>
+                <a href="#slide-2" class="mobile-nav-link block text-white font-medium text-sm">02. Profile & Focus</a>
+                <a href="#slide-3" class="mobile-nav-link block text-white font-medium text-sm">03. Certifications Vault</a>
+                <a href="#slide-4" class="mobile-nav-link block text-white font-medium text-sm">04. Keynotes & GSDC</a>
+                <a href="#slide-5" class="mobile-nav-link block text-white font-medium text-sm">05. PurposeOS Venture</a>
+                <a href="#slide-6" class="mobile-nav-link block text-white font-medium text-sm">06. Medium & Newsletter</a>
+                <a href="#slide-7" class="mobile-nav-link block text-white font-medium text-sm">07. Schedule Advisory</a>
             </div>
         </div>
     </header>
 
-    <!-- HERO SECTION -->
-    <section id="home" class="relative pt-32 pb-20 lg:pt-44 lg:pb-28 overflow-hidden">
-        <!-- Ambient Radial Background Glows -->
-        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[700px] ambient-glow-plum rounded-full pointer-events-none"></div>
-        <div class="absolute top-1/3 right-0 w-[400px] h-[400px] ambient-glow-pink rounded-full pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- SLIDE 1: HERO & INTRODUCTION (Royal Plum Theme - #7F055F) -->
+    <section id="slide-1" class="slide-section slide-plum border-b-4 border-brand-blush">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            
             <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
                 
-                <!-- Hero Left Column: Narrative & Positioning -->
-                <div class="lg:col-span-7 space-y-6 text-left">
-                    
-                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full exec-card border border-brand-pink/30 text-brand-pink text-xs font-semibold uppercase tracking-wider">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                        Technology • AI Governance • Cyber Security Strategist
+                <!-- Left Content Area -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-brand-crimson border border-brand-blush/50 text-brand-blush text-xs font-bold uppercase tracking-wider">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                        Technology • AI Governance • Cyber Security
                     </div>
 
-                    <h1 class="font-heading font-extrabold text-3xl sm:text-5xl lg:text-5xl xl:text-6xl tracking-tight text-white leading-[1.15]">
-                        Building at the Intersection of <span class="gradient-heading">Technology, Business & People</span>
+                    <h1 class="font-heading font-extrabold text-3xl sm:text-5xl lg:text-5xl xl:text-6xl tracking-tight text-white leading-tight">
+                        Building at the Intersection of <span class="text-brand-blush">Technology, Business & People</span>
                     </h1>
 
-                    <p class="text-base sm:text-lg text-brand-muted max-w-2xl font-normal leading-relaxed">
+                    <p class="text-base sm:text-lg text-brand-blush/90 max-w-2xl font-medium leading-relaxed">
                         I help founders, CEOs, and executive leaders make better technology decisions by bridging cybersecurity defense, AI governance, and measurable bottom-line revenue impact.
                     </p>
 
-                    <!-- Core Philosophy Banner Card -->
-                    <div class="exec-card p-5 rounded-2xl border-l-4 border-brand-pink bg-brand-plum/20">
-                        <p class="text-xs sm:text-sm italic text-brand-light/90 leading-relaxed">
-                            "Technology is not just about what an organization can adopt. It is about what the organization can adopt <strong class="text-brand-pink font-semibold">securely, strategically, and profitably</strong>."
+                    <!-- Core Quote Banner -->
+                    <div class="p-5 rounded-2xl bg-brand-crimson/80 border-l-4 border-brand-blush shadow-lg">
+                        <p class="text-xs sm:text-sm italic text-white/95 leading-relaxed font-medium">
+                            "Technology is not just about what an organization can adopt. It is about what the organization can adopt <strong class="text-brand-blush font-bold underline">securely, strategically, and profitably</strong>."
                         </p>
                     </div>
 
                     <!-- Call To Action Buttons -->
                     <div class="flex flex-wrap items-center gap-4 pt-2">
-                        <a href="#contact" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-magenta via-brand-plum to-brand-magenta text-white font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-xl shadow-brand-magenta/30 flex items-center gap-2 border border-brand-pink/30">
-                            <span>Request Executive Advisory</span>
+                        <a href="#slide-7" class="px-7 py-3.5 rounded-xl bg-brand-blush text-brand-crimson font-extrabold text-xs uppercase tracking-wider hover:bg-white transition-all shadow-xl flex items-center gap-2">
+                            <span>Schedule Consultation</span>
                             <i class="fa-solid fa-calendar-check"></i>
                         </a>
-                        <a href="#certifications" class="px-7 py-3.5 rounded-xl exec-card border border-brand-pink/20 text-white font-semibold text-xs uppercase tracking-wider hover:border-brand-pink hover:bg-brand-surfaceHover transition-all flex items-center gap-2">
-                            <span>Explore Credentials</span>
-                            <i class="fa-solid fa-award text-brand-pink"></i>
+                        <a href="#slide-3" class="px-7 py-3.5 rounded-xl card-plum text-white font-bold text-xs uppercase tracking-wider hover:bg-brand-crimson transition-all flex items-center gap-2">
+                            <span>Explore 13+ Certifications</span>
+                            <i class="fa-solid fa-award text-brand-blush"></i>
                         </a>
                     </div>
-
-                    <!-- Quick Executive Metrics -->
-                    <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-6 text-left">
-                        <div>
-                            <div class="font-heading font-bold text-2xl lg:text-3xl text-white">13+</div>
-                            <div class="text-xs text-brand-muted mt-1 font-medium">Verified Certifications</div>
-                        </div>
-                        <div>
-                            <div class="font-heading font-bold text-2xl lg:text-3xl text-white">4x</div>
-                            <div class="text-xs text-brand-muted mt-1 font-medium">GSDC Keynote Speaker</div>
-                        </div>
-                        <div>
-                            <div class="font-heading font-bold text-2xl lg:text-3xl text-white">Founder</div>
-                            <div class="text-xs text-brand-muted mt-1 font-medium">The PurposeOS Platform</div>
-                        </div>
-                    </div>
-
                 </div>
 
-                <!-- Hero Right Column: Professional Portrait Headshot Card -->
+                <!-- Right Column: Headshot Portrait Image Display with Cascade Fallbacks -->
                 <div class="lg:col-span-5 relative">
-                    
-                    <div class="exec-card rounded-3xl p-6 border border-brand-pink/30 shadow-2xl relative overflow-hidden group">
+                    <div class="card-plum rounded-3xl p-6 border-2 border-brand-blush shadow-2xl relative overflow-hidden bg-brand-crimson/90">
                         
-                        <!-- Top Accent Line -->
-                        <div class="h-1.5 w-full bg-gradient-to-r from-brand-magenta via-brand-pink to-brand-plum absolute top-0 left-0"></div>
-
-                        <!-- Portrait Frame Container -->
-                        <div class="relative rounded-2xl overflow-hidden mb-6 bg-brand-surface aspect-[4/5] border border-brand-pink/20 shadow-inner group">
+                        <!-- Portrait Image Container -->
+                        <div class="relative rounded-2xl overflow-hidden mb-5 aspect-[4/5] bg-brand-plum border-2 border-brand-blush/40 flex items-center justify-center shadow-inner">
                             
-                            <!-- Headshot Image with clean fallback -->
-                            <img src="profile.jpg" alt="Orifha Joan Thompson (Iherete)" 
-                                 class="w-full h-full object-cover object-top filter brightness-105 contrast-105 transition-transform duration-500 group-hover:scale-102"
-                                 onerror="this.onerror=null; this.src='Professional headshot.jpeg';">
-                            
-                            <!-- Studio Ambient Lighting Overlay -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-brand-base via-transparent to-transparent opacity-80"></div>
+                            <!-- Headshot Image with robust cascading error handler -->
+                            <img id="headshot-img" 
+                                 src="Professional headshot.jpeg" 
+                                 alt="Orifha Joan Thompson (Iherete)" 
+                                 class="w-full h-full object-cover object-top"
+                                 onerror="handleImgError(this)">
                             
                             <!-- Overlay Badge -->
-                            <div class="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-brand-base/85 backdrop-blur-md border border-brand-pink/30 flex items-center justify-between">
+                            <div class="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-brand-crimson/90 backdrop-blur-md border border-brand-blush/40 flex items-center justify-between">
                                 <div>
-                                    <h2 class="font-heading font-bold text-sm text-white">Orifha Joan Thompson</h2>
-                                    <p class="text-[10px] text-brand-pink font-semibold">Technology & AI Governance Advisor</p>
+                                    <h2 class="font-heading font-bold text-xs text-white">Orifha Joan Thompson</h2>
+                                    <p class="text-[10px] text-brand-blush font-semibold">AI Governance & Cyber Advisor</p>
                                 </div>
-                                <span class="w-3 h-3 rounded-full bg-emerald-400 border-2 border-brand-base shadow-sm"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-400 border-2 border-brand-crimson"></span>
                             </div>
                         </div>
 
-                        <!-- Key Focus Pills -->
-                        <div class="space-y-2.5">
-                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-brand-pink/15">
-                                <div class="flex items-center gap-2.5">
-                                    <span class="text-base">🎓</span>
-                                    <div>
-                                        <div class="text-xs font-bold text-white">MSc Business Analytics & AI</div>
-                                        <div class="text-[10px] text-brand-muted">Applied AI & Strategic Enterprise Value</div>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] px-2 py-0.5 rounded bg-brand-magenta/30 text-brand-pink font-mono">In Progress</span>
+                        <!-- Highlights Pills -->
+                        <div class="space-y-2">
+                            <div class="p-2.5 rounded-xl bg-black/30 border border-brand-blush/30 flex items-center justify-between">
+                                <span class="text-xs font-bold text-white">🎓 MSc Business Analytics & Applied AI</span>
+                                <span class="text-[9px] px-2 py-0.5 rounded bg-brand-blush text-brand-crimson font-mono font-bold">In Progress</span>
                             </div>
-
-                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-black/40 border border-brand-pink/15">
-                                <div class="flex items-center gap-2.5">
-                                    <span class="text-base">🛡️</span>
-                                    <div>
-                                        <div class="text-xs font-bold text-white">ISO 42001 & ISO 27001</div>
-                                        <div class="text-[10px] text-brand-muted">Certified Lead Auditor (AIMS & ISMS)</div>
-                                    </div>
-                                </div>
-                                <span class="text-[9px] px-2 py-0.5 rounded bg-brand-magenta/30 text-brand-pink font-mono">Certified</span>
+                            <div class="p-2.5 rounded-xl bg-black/30 border border-brand-blush/30 flex items-center justify-between">
+                                <span class="text-xs font-bold text-white">🛡️️ ISO 42001 & ISO 27001 Lead Auditor</span>
+                                <span class="text-[9px] px-2 py-0.5 rounded bg-brand-blush text-brand-crimson font-mono font-bold">Certified</span>
                             </div>
                         </div>
 
                     </div>
-
                 </div>
 
             </div>
+
         </div>
     </section>
 
-    <!-- ABOUT & PHILOSOPHY SECTION -->
-    <section id="about" class="py-20 relative bg-brand-surface/40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SLIDE 2: ABOUT & PROFILE (Blush Pop Theme - #E5A4CB) -->
+    <section id="slide-2" class="slide-section slide-blush border-b-4 border-brand-plum">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-bold text-brand-pink uppercase tracking-widest mb-2">Professional Profile</h2>
-                <h3 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="px-3.5 py-1 rounded-full bg-brand-plum text-white text-xs font-bold uppercase tracking-wider">Slide 02 • Profile Deck</span>
+                <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-brand-blushDark mt-3">
                     Who is Orifha Joan Thompson (Iherete)?
-                </h3>
-                <div class="h-1 w-16 bg-gradient-to-r from-brand-magenta to-brand-pink mx-auto mt-4 rounded-full"></div>
+                </h2>
+                <div class="h-1.5 w-20 bg-brand-plum mx-auto mt-3 rounded-full"></div>
             </div>
 
             <div class="grid lg:grid-cols-12 gap-8 items-stretch">
                 
-                <!-- Story Narrative Card -->
-                <div class="lg:col-span-7 exec-card p-8 rounded-3xl border border-brand-pink/20 flex flex-col justify-between">
+                <!-- Story Card -->
+                <div class="lg:col-span-7 card-blush p-8 rounded-3xl border-2 border-brand-plum/30 flex flex-col justify-between shadow-xl">
                     <div>
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-10 h-10 rounded-xl bg-brand-magenta/30 flex items-center justify-center text-brand-pink border border-brand-pink/20">
-                                <i class="fa-solid fa-compass text-base"></i>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-plum text-white flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-user-shield"></i>
                             </div>
-                            <h4 class="font-heading font-bold text-xl text-white">The Executive Journey</h4>
+                            <h3 class="font-heading font-bold text-xl text-brand-blushDark">The Executive Journey</h3>
                         </div>
 
-                        <div class="space-y-4 text-brand-muted text-sm leading-relaxed">
+                        <div class="space-y-4 text-brand-blushDark/90 text-sm leading-relaxed font-medium">
                             <p>
-                                I am <strong class="text-white">Orifha Joan Thompson</strong>, a technology and business professional building at the multi-disciplinary intersection of technology, business, and human capability.
+                                I am <strong class="text-brand-plum font-bold">Orifha Joan Thompson</strong>, a technology and business professional building at the multi-disciplinary intersection of technology, business, and human capability.
                             </p>
                             <p>
-                                My journey began in <span class="text-brand-pink font-semibold">Banking and Finance</span>, establishing a rigorous foundation in operational risk, financial stewardship, and corporate strategy. I subsequently pivoted into <span class="text-brand-pink font-semibold">Cybersecurity Operations & Threat Management</span> to master technical defense.
+                                My journey started in <span class="text-brand-plum font-bold">Banking and Finance</span>, establishing a rigorous foundation in operational risk, financial stewardship, and corporate strategy. I subsequently pivoted into <span class="text-brand-plum font-bold">Cybersecurity Operations</span> to master technical defense.
                             </p>
                             <p>
-                                Today, I am expanding that cross-functional capability through a <strong class="text-white">Master’s degree in Business Analytics and Applied AI</strong>. This synthesis allows me to evaluate technology investments not as isolated IT projects, but as strategic drivers of commercial enterprise growth.
+                                Today, I am deepening that cross-functional capability through a <strong class="text-brand-plum font-bold">Master’s degree in Business Analytics and Applied AI</strong>. This allows me to evaluate technology investments not as isolated IT projects, but as strategic drivers of commercial enterprise growth.
                             </p>
                         </div>
                     </div>
 
                     <!-- Core Value Pillars -->
-                    <div class="grid sm:grid-cols-3 gap-4 pt-8 mt-8 border-t border-white/10">
-                        <div class="p-4 rounded-xl bg-black/30 border border-brand-pink/15">
-                            <div class="text-brand-pink font-bold text-xs uppercase tracking-wider">Securely</div>
-                            <p class="text-xs text-brand-muted mt-1">Rigorous cyber risk mitigation & AI safety controls.</p>
+                    <div class="grid sm:grid-cols-3 gap-3 pt-6 mt-6 border-t-2 border-brand-plum/10">
+                        <div class="p-3.5 rounded-xl bg-brand-blushLight border border-brand-plum/20">
+                            <div class="text-brand-plum font-bold text-xs uppercase">1. Securely</div>
+                            <p class="text-[11px] text-brand-blushDark mt-1">Cyber risk mitigation & AI safety controls.</p>
                         </div>
-                        <div class="p-4 rounded-xl bg-black/30 border border-brand-pink/15">
-                            <div class="text-brand-pink font-bold text-xs uppercase tracking-wider">Strategically</div>
-                            <p class="text-xs text-brand-muted mt-1">Aligned with corporate governance & board priorities.</p>
+                        <div class="p-3.5 rounded-xl bg-brand-blushLight border border-brand-plum/20">
+                            <div class="text-brand-plum font-bold text-xs uppercase">2. Strategically</div>
+                            <p class="text-[11px] text-brand-blushDark mt-1">Aligned with corporate governance & board priorities.</p>
                         </div>
-                        <div class="p-4 rounded-xl bg-black/30 border border-brand-pink/15">
-                            <div class="text-brand-pink font-bold text-xs uppercase tracking-wider">Profitably</div>
-                            <p class="text-xs text-brand-muted mt-1">Clear financial ROI, efficiency, and enterprise valuation.</p>
+                        <div class="p-3.5 rounded-xl bg-brand-blushLight border border-brand-plum/20">
+                            <div class="text-brand-plum font-bold text-xs uppercase">3. Profitably</div>
+                            <p class="text-[11px] text-brand-blushDark mt-1">Clear financial return & measurable enterprise value.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Column: Scope & Value Proposition -->
+                <!-- Scope & Services Column -->
                 <div class="lg:col-span-5 space-y-6 flex flex-col justify-between">
                     
                     <!-- What I Do Card -->
-                    <div class="exec-card p-6 rounded-3xl border border-brand-pink/20">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-8 h-8 rounded-lg bg-brand-magenta/30 flex items-center justify-center text-brand-pink border border-brand-pink/20">
-                                <i class="fa-solid fa-chart-pie text-xs"></i>
+                    <div class="card-blush p-6 rounded-3xl border-2 border-brand-plum/30 shadow-xl">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-9 h-9 rounded-xl bg-brand-plum text-white flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-chart-line"></i>
                             </div>
-                            <h4 class="font-heading font-bold text-lg text-white">What I Do</h4>
+                            <h4 class="font-heading font-bold text-lg text-brand-blushDark">What I Do</h4>
                         </div>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">
-                            I help Founders and CEOs make better technology decisions by connecting security, business value, and adoption:
+                        <p class="text-xs text-brand-blushDark/90 mb-3 font-medium leading-relaxed">
+                            I help Founders and CEOs make better technology decisions by connecting security, business value, and technology adoption:
                         </p>
-                        <ul class="space-y-2.5 text-xs text-white/90">
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-check text-brand-pink mt-0.5"></i>
-                                <span>Evaluate emerging technologies and associated threat vectors</span>
+                        <ul class="space-y-2 text-xs text-brand-blushDark font-semibold">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-brand-plum mt-0.5"></i>
+                                <span>Evaluate technology and its associated risks</span>
                             </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-check text-brand-pink mt-0.5"></i>
-                                <span>Define clear financial return metrics before capital commitment</span>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-brand-plum mt-0.5"></i>
+                                <span>Define value & return metrics before capital commitment</span>
                             </li>
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-check text-brand-pink mt-0.5"></i>
-                                <span>Develop practical risk management frameworks that scale with growth</span>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-brand-plum mt-0.5"></i>
+                                <span>Develop practical frameworks that scale with the business</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-brand-plum mt-0.5"></i>
+                                <span>Guide informed cybersecurity & AI adoption choices</span>
                             </li>
                         </ul>
                     </div>
 
                     <!-- Who I Serve Card -->
-                    <div class="exec-card p-6 rounded-3xl border border-brand-pink/20 bg-gradient-to-br from-brand-plum/30 to-transparent">
-                        <div class="flex items-center gap-3 mb-3">
-                            <div class="w-8 h-8 rounded-lg bg-brand-pink/20 flex items-center justify-center text-brand-pink">
-                                <i class="fa-solid fa-user-shield text-xs"></i>
+                    <div class="card-blush p-6 rounded-3xl border-2 border-brand-plum/30 bg-brand-plum/5 shadow-xl">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-9 h-9 rounded-xl bg-brand-plum text-white flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-users text-sm"></i>
                             </div>
-                            <h4 class="font-heading font-bold text-lg text-white">Who I Serve</h4>
+                            <h4 class="font-heading font-bold text-lg text-brand-blushDark">Who I Serve</h4>
                         </div>
-                        <p class="text-xs text-brand-muted leading-relaxed">
-                            Primarily <strong class="text-white">Founders, CEOs, and Executive Business Leaders</strong> leading organizations where technology, cybersecurity, or AI adoption directly impacts revenue, operational resilience, and market trust.
+                        <p class="text-xs text-brand-blushDark font-medium leading-relaxed">
+                            Primarily <strong class="text-brand-plum font-bold">Founders, CEOs, and Executive Business Leaders</strong> leading organizations where technology, cybersecurity, or AI directly impacts revenue, resilience, and market trust.
                         </p>
                     </div>
 
@@ -392,320 +363,239 @@
 
             </div>
 
-            <!-- Skills & Capabilities Grid -->
-            <div class="mt-16">
-                <h4 class="text-xs font-bold text-brand-pink uppercase tracking-widest text-center mb-8">Core Competencies & Strategic Domains</h4>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    
-                    <div class="exec-card exec-card-hover p-4 rounded-2xl flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-magenta/30 flex items-center justify-center text-brand-pink">
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold text-white">Information Security</div>
-                            <div class="text-[10px] text-brand-muted">Consulting & Advisory</div>
-                        </div>
-                    </div>
-
-                    <div class="exec-card exec-card-hover p-4 rounded-2xl flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-magenta/30 flex items-center justify-center text-brand-pink">
-                            <i class="fa-solid fa-brain"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold text-white">AI Security & Safety</div>
-                            <div class="text-[10px] text-brand-muted">Risk & Threat Vectors</div>
-                        </div>
-                    </div>
-
-                    <div class="exec-card exec-card-hover p-4 rounded-2xl flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-magenta/30 flex items-center justify-center text-brand-pink">
-                            <i class="fa-solid fa-scale-balanced"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold text-white">AI Policy & Governance</div>
-                            <div class="text-[10px] text-brand-muted">ISO 42001 & Regulation</div>
-                        </div>
-                    </div>
-
-                    <div class="exec-card exec-card-hover p-4 rounded-2xl flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-magenta/30 flex items-center justify-center text-brand-pink">
-                            <i class="fa-solid fa-chart-line"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold text-white">Cyber Risk Strategy</div>
-                            <div class="text-[10px] text-brand-muted">Business Value & ICT</div>
-                        </div>
-                    </div>
-
-                    <div class="exec-card exec-card-hover p-4 rounded-2xl flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-magenta/30 flex items-center justify-center text-brand-pink">
-                            <i class="fa-solid fa-rocket"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold text-white">Start-up Leadership</div>
-                            <div class="text-[10px] text-brand-muted">PurposeOS Platform</div>
-                        </div>
-                    </div>
-
-                    <div class="exec-card exec-card-hover p-4 rounded-2xl flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-magenta/30 flex items-center justify-center text-brand-pink">
-                            <i class="fa-solid fa-microscope"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold text-white">Research & Dev (R&D)</div>
-                            <div class="text-[10px] text-brand-muted">Applied AI & Threat Intel</div>
-                        </div>
-                    </div>
-
-                    <div class="exec-card exec-card-hover p-4 rounded-2xl flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-magenta/30 flex items-center justify-center text-brand-pink">
-                            <i class="fa-solid fa-eye"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold text-white">SOC Operations</div>
-                            <div class="text-[10px] text-brand-muted">SIEM & Defender XDR</div>
-                        </div>
-                    </div>
-
-                    <div class="exec-card exec-card-hover p-4 rounded-2xl flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-brand-magenta/30 flex items-center justify-center text-brand-pink">
-                            <i class="fa-solid fa-microphone"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold text-white">Keynote Facilitation</div>
-                            <div class="text-[10px] text-brand-muted">4x GSDC Facilitator</div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
         </div>
     </section>
 
-    <!-- CERTIFICATIONS VAULT SECTION -->
-    <section id="certifications" class="py-20 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SLIDE 3: CERTIFICATIONS VAULT (Royal Plum Theme - #7F055F) -->
+    <section id="slide-3" class="slide-section slide-plum border-b-4 border-brand-blush">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             
-            <div class="text-center max-w-3xl mx-auto mb-12">
-                <h2 class="text-xs font-bold text-brand-pink uppercase tracking-widest mb-2">Verified Credentials</h2>
-                <h3 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="px-3.5 py-1 rounded-full bg-brand-crimson text-brand-blush text-xs font-bold uppercase tracking-wider border border-brand-blush/40">Slide 03 • Credentials Vault</span>
+                <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white mt-3">
                     Certifications & Academic Qualifications
-                </h3>
-                <p class="text-xs sm:text-sm text-brand-muted mt-3">
-                    A comprehensive portfolio of industry-recognized accreditations spanning AI Governance, Lead Auditing, SOC Threat Operations, and Security Architecture.
+                </h2>
+                <p class="text-xs sm:text-sm text-brand-blush/90 mt-2 font-medium">
+                    A comprehensive portfolio spanning Industry Standards, AI Governance, Lead Auditing, SOC Threat Ops, and CTF Challenges.
                 </p>
-                <div class="h-1 w-16 bg-gradient-to-r from-brand-magenta to-brand-pink mx-auto mt-4 rounded-full"></div>
+                <div class="h-1.5 w-20 bg-brand-blush mx-auto mt-3 rounded-full"></div>
             </div>
 
             <!-- Filter Buttons -->
-            <div class="flex flex-wrap items-center justify-center gap-2 mb-10" id="cert-filter-container">
-                <button class="cert-filter-btn active px-4 py-2 rounded-xl text-xs font-semibold transition-all bg-brand-magenta text-white border border-brand-pink/30 shadow-md" data-filter="all">
-                    All Accreditations
+            <div class="flex flex-wrap items-center justify-center gap-2 mb-8" id="cert-filter-container">
+                <button class="cert-filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-blush text-brand-crimson shadow-lg" data-filter="all">
+                    All Accreditations (13+)
                 </button>
-                <button class="cert-filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all exec-card text-brand-muted hover:text-white" data-filter="grc">
-                    GRC & AI Governance
+                <button class="cert-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all card-plum text-brand-blush hover:text-white" data-filter="industry">
+                    1. Industry Standard
                 </button>
-                <button class="cert-filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all exec-card text-brand-muted hover:text-white" data-filter="soc">
-                    SOC & Defensive Ops
+                <button class="cert-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all card-plum text-brand-blush hover:text-white" data-filter="grc">
+                    2. GRC & AI Governance
                 </button>
-                <button class="cert-filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all exec-card text-brand-muted hover:text-white" data-filter="industry">
-                    Industry Standard
+                <button class="cert-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all card-plum text-brand-blush hover:text-white" data-filter="soc">
+                    3. SOC & Defensive Security
                 </button>
-                <button class="cert-filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all exec-card text-brand-muted hover:text-white" data-filter="fundamentals">
-                    Fundamentals & CTF
+                <button class="cert-filter-btn px-4 py-2 rounded-xl text-xs font-bold transition-all card-plum text-brand-blush hover:text-white" data-filter="fundamentals">
+                    4. Fundamentals & CTF
                 </button>
             </div>
 
             <!-- Certifications Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="cert-grid">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5" id="cert-grid">
 
                 <!-- 1. ISC2 CC -->
-                <div class="cert-item industry exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <div class="cert-item industry card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-brand-magenta/30 text-brand-pink text-[10px] font-bold uppercase tracking-wider border border-brand-pink/30">Industry Accredited</span>
-                            <span class="text-[10px] text-brand-muted font-mono">ISC2</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-brand-blush text-brand-crimson text-[10px] font-extrabold uppercase">ISC2 Accredited</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">Industry Standard</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">Certified in Cybersecurity (CC)</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Global foundational credential covering Access Controls, Security Operations, Incident Response, and Network Security.</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">Global foundational credential covering Access Controls, Security Operations, IR, and Network Security.</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-white/70 font-mono flex items-center justify-between">
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono flex justify-between items-center">
                         <span>ISC2 Credential Holder</span>
-                        <i class="fa-solid fa-award text-brand-pink"></i>
+                        <i class="fa-solid fa-award"></i>
                     </div>
                 </div>
 
                 <!-- 2. Microsoft SC-200 -->
-                <div class="cert-item industry exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <div class="cert-item industry card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-blue-500/20 text-blue-300 text-[10px] font-bold uppercase tracking-wider border border-blue-500/30">Microsoft Associate</span>
-                            <span class="text-[10px] text-brand-muted font-mono">Microsoft</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-blue-500/30 text-blue-200 text-[10px] font-extrabold uppercase">Microsoft Associate</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">Industry Standard</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">Security Operations Analyst Associate (SC-200)</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Threat mitigation utilizing Microsoft Defender XDR, Microsoft Sentinel, and Purview environment.</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">Threat mitigation utilizing Microsoft Defender XDR, Microsoft Sentinel, and Purview environment.</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-blue-300 font-mono">
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-blue-200 font-mono">
                         Microsoft Certified Associate
                     </div>
                 </div>
 
-                <!-- 3. ISO 42001 -->
-                <div class="cert-item grc exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <!-- 3. ISO 42001 Lead Auditor -->
+                <div class="cert-item grc card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-purple-500/20 text-purple-300 text-[10px] font-bold uppercase tracking-wider border border-purple-500/30">AI Governance</span>
-                            <span class="text-[10px] text-brand-muted font-mono">Mastermind</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-purple-500/30 text-purple-200 text-[10px] font-extrabold uppercase">AI Governance</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">Mastermind</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">ISO/IEC 42001:2023 Lead Auditor</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Certified Lead Auditor for Artificial Intelligence Management Systems (AIMS).</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">Certified Lead Auditor for Artificial Intelligence Management Systems (AIMS).</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-brand-muted font-mono space-y-1">
-                        <div>Issued: Jan 2026 • Valid thru 2029</div>
-                        <div class="text-brand-pink">ID: yv13y08mwp</div>
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono">
+                        Issued: Jan 2026 • Valid thru 2029
                     </div>
                 </div>
 
-                <!-- 4. ISO 27001 -->
-                <div class="cert-item grc exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <!-- 4. ISO 27001 Lead Auditor -->
+                <div class="cert-item grc card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-purple-500/20 text-purple-300 text-[10px] font-bold uppercase tracking-wider border border-purple-500/30">ISMS Lead Auditor</span>
-                            <span class="text-[10px] text-brand-muted font-mono">Mastermind</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-purple-500/30 text-purple-200 text-[10px] font-extrabold uppercase">ISMS Lead Auditor</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">Mastermind</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">ISO/IEC 27001:2022 Lead Auditor</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Lead Auditor credential for Information Security Management Systems (ISMS).</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">Lead Auditor credential for Information Security Management Systems (ISMS).</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-brand-muted font-mono space-y-1">
-                        <div>Issued: Dec 2025 • Valid thru 2028</div>
-                        <div class="text-brand-pink">ID: qht5rjltkd</div>
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono">
+                        Issued: Dec 2025 • Valid thru 2028
                     </div>
                 </div>
 
                 <!-- 5. BTL1 Gold Badge -->
-                <div class="cert-item soc exec-card exec-card-hover p-6 rounded-2xl border-amber-500/40 bg-gradient-to-br from-amber-500/10 via-transparent to-transparent relative flex flex-col justify-between">
+                <div class="cert-item soc card-plum p-6 rounded-2xl border-2 border-amber-400 bg-brand-crimson/90 flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 text-[10px] font-bold uppercase tracking-wider border border-amber-500/30">🏅 Gold Badge Status</span>
-                            <span class="text-[10px] text-brand-muted font-mono">Security Blue Team</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-amber-400 text-brand-crimson text-[10px] font-extrabold uppercase">🏅 Gold Badge Status</span>
+                            <span class="text-[10px] text-amber-200 font-mono">Security Blue Team</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">Blue Team Level 1 (BTL1)</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Practical hands-on SOC analysis, incident response, digital forensics, and threat hunting.</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">Practical SOC analysis, incident response, digital forensics, and threat hunting.</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-amber-300 font-semibold font-mono">
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-amber-300 font-bold font-mono">
                         Passed with Honors • Gold Badge Credential
                     </div>
                 </div>
 
                 <!-- 6. Intro to AI Security -->
-                <div class="cert-item grc exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <div class="cert-item grc card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-purple-500/20 text-purple-300 text-[10px] font-bold uppercase tracking-wider border border-purple-500/30">AI Security</span>
-                            <span class="text-[10px] text-brand-muted font-mono">AISEC University</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-purple-500/30 text-purple-200 text-[10px] font-extrabold uppercase">AI Safety</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">AISEC Univ</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">Introduction to AI Security</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Core AI safety principles, threat modeling for AI models, and model security risks.</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">AI safety principles, threat modeling for AI models, and LLM security risks.</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-brand-muted font-mono space-y-1">
-                        <div>Issued: Sep 2026 • 2 CPE Credits</div>
-                        <div class="text-brand-pink">ID: 962d96a0-4eec-410c</div>
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono">
+                        Issued: Sep 2026 • 2 CPE Credits
                     </div>
                 </div>
 
                 <!-- 7. TryHackMe AI Security -->
-                <div class="cert-item grc exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <div class="cert-item grc card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-brand-magenta/30 text-brand-pink text-[10px] font-bold uppercase tracking-wider border border-brand-pink/30">TryHackMe Path</span>
-                            <span class="text-[10px] text-brand-muted font-mono">TryHackMe</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-brand-blush text-brand-crimson text-[10px] font-extrabold uppercase">Learning Path</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">TryHackMe</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">AI Security Learning Path</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">20+ Hours of specialized hands-on coursework covering LLM security and prompt injection risks.</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">20+ Hours of specialized hands-on coursework covering LLM security and prompt injection risks.</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-brand-muted font-mono space-y-1">
-                        <div>Issued: May 2026</div>
-                        <div class="text-brand-pink">ID: THM-JKUQFCMN77</div>
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono">
+                        Issued: May 2026
                     </div>
                 </div>
 
                 <!-- 8. SAL1 -->
-                <div class="cert-item soc exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <div class="cert-item soc card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider border border-emerald-500/30">Security Analyst</span>
-                            <span class="text-[10px] text-brand-muted font-mono">TryHackMe</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-emerald-500/30 text-emerald-200 text-[10px] font-extrabold uppercase">Security Analyst</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">TryHackMe</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">Security Analyst Level 1 (SAL1)</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Demonstrated practical skills required for operational SOC environments.</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">Practical skills required for operational Security Operations Center environments.</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-brand-muted font-mono space-y-1">
-                        <div>Issued: Mar 2025</div>
-                        <div class="text-brand-pink">ID: THM-67876336417fer</div>
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono">
+                        Issued: Mar 2025
                     </div>
                 </div>
 
                 <!-- 9. CPPS -->
-                <div class="cert-item soc exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <div class="cert-item soc card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider border border-emerald-500/30">Social Engineering</span>
-                            <span class="text-[10px] text-brand-muted font-mono">Hack & Fix Academy</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-emerald-500/30 text-emerald-200 text-[10px] font-extrabold uppercase">Phishing Defense</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">Hack & Fix</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">Certified Phishing Prevention Specialist (CPPS)</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Human threat modeling, email header analysis, and anti-phishing defense strategies.</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">Human threat modeling, email header analysis, and anti-phishing defense strategies.</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-brand-muted font-mono space-y-1">
-                        <div>Issued: Jan 2026</div>
-                        <div class="text-brand-pink">ID: 8001-1392-4112</div>
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono">
+                        Issued: Jan 2026
                     </div>
                 </div>
 
                 <!-- 10. CyBlack SOC Training -->
-                <div class="cert-item soc exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <div class="cert-item soc card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider border border-emerald-500/30">CyBlack Academy</span>
-                            <span class="text-[10px] text-brand-muted font-mono">CyBlack</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-emerald-500/30 text-emerald-200 text-[10px] font-extrabold uppercase">CyBlack Academy</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">CyBlack</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">SOC Analyst Training</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Security Operations Center workflow, incident triage, and log investigation.</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">SOC workflow, SIEM incident triage, and log investigation.</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-brand-muted font-mono space-y-1">
-                        <div>Issued: Dec 2025</div>
-                        <div class="text-brand-pink">ID: c71695ee-5882</div>
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono">
+                        Issued: Dec 2025
                     </div>
                 </div>
 
-                <!-- 11. Cisco Threat Management -->
-                <div class="cert-item soc exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <!-- 11. Cisco Cyber Threat Management -->
+                <div class="cert-item soc card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-blue-500/20 text-blue-300 text-[10px] font-bold uppercase tracking-wider border border-blue-500/30">Cisco Networking</span>
-                            <span class="text-[10px] text-brand-muted font-mono">Cisco</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-blue-500/30 text-blue-200 text-[10px] font-extrabold uppercase">Cisco Networking</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">Cisco</span>
                         </div>
                         <h4 class="font-heading font-bold text-base text-white mb-2">Cyber Threat Management</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Vulnerability assessment, incident response planning, and disaster recovery execution.</p>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">Vulnerability assessment, incident response planning, and disaster recovery.</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-brand-muted font-mono space-y-1">
-                        <div>Issued: Apr 2024</div>
-                        <div class="text-brand-pink">ID: CG/24/0623</div>
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono">
+                        Issued: Apr 2024
                     </div>
                 </div>
 
-                <!-- 12. Fundamentals & CTF -->
-                <div class="cert-item fundamentals exec-card exec-card-hover p-6 rounded-2xl relative flex flex-col justify-between">
+                <!-- 12. Cisco Intro to Cyber & Advent -->
+                <div class="cert-item fundamentals card-plum p-6 rounded-2xl flex flex-col justify-between">
                     <div>
-                        <div class="flex justify-between items-start mb-3">
-                            <span class="px-2.5 py-1 rounded-md bg-brand-plum/60 text-brand-pink text-[10px] font-bold uppercase tracking-wider border border-brand-pink/30">Practical CTF</span>
-                            <span class="text-[10px] text-brand-muted font-mono">Hackfinity & Cisco</span>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-brand-crimson text-brand-blush text-[10px] font-extrabold uppercase">Fundamentals</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">Cisco & THM</span>
                         </div>
-                        <h4 class="font-heading font-bold text-base text-white mb-2">Hackfinity CTF & Advent of Cyber</h4>
-                        <p class="text-xs text-brand-muted mb-4 leading-relaxed">Rank #15 in Hackfinity Battle CTF (2,724 pts), THM Advent of Cyber 2025, & Cisco Intro to Cyber.</p>
+                        <h4 class="font-heading font-bold text-base text-white mb-2">Intro to Cybersecurity & Advent of Cyber 2025</h4>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">Cisco Introduction to Cybersecurity (Mar 2024) & Advent of Cyber 2025 (Dec 2025).</p>
                     </div>
-                    <div class="pt-4 border-t border-white/10 text-[11px] text-brand-muted font-mono">
-                        Active Practical Challenge Competitor
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono">
+                        Foundational Credentials
+                    </div>
+                </div>
+
+                <!-- 13. Hackfinity Battle CTF -->
+                <div class="cert-item fundamentals card-plum p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2.5 py-1 rounded bg-brand-blush text-brand-crimson text-[10px] font-extrabold uppercase">Rank 15 • 2,724 pts</span>
+                            <span class="text-[10px] text-brand-blush/80 font-mono">Hackfinity</span>
+                        </div>
+                        <h4 class="font-heading font-bold text-base text-white mb-2">Hackfinity Battle CTF Challenge</h4>
+                        <p class="text-xs text-brand-blush/90 mb-4 leading-relaxed">Demonstrated practical offensive and defensive skills in competitive CTF battle.</p>
+                    </div>
+                    <div class="pt-3 border-t border-brand-blush/20 text-[11px] text-brand-blush font-mono">
+                        Rank #15 | Issued: Mar 2025
                     </div>
                 </div>
 
@@ -714,79 +604,72 @@
         </div>
     </section>
 
-    <!-- KEYNOTE SPEAKING & GSDC FACILITATION SECTION -->
-    <section id="speaking" class="py-20 relative bg-brand-surface/40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SLIDE 4: KEYNOTE SPEAKING & GSDC (Blush Pop Theme - #E5A4CB) -->
+    <section id="slide-4" class="slide-section slide-blush border-b-4 border-brand-plum">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             
-            <div class="grid lg:grid-cols-12 gap-12 items-center">
+            <div class="grid lg:grid-cols-12 gap-10 items-center">
                 
-                <!-- Left Narrative Column -->
-                <div class="lg:col-span-7 space-y-6">
-                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full exec-card text-brand-pink text-xs font-semibold uppercase tracking-wider border border-brand-pink/30">
-                        <i class="fa-solid fa-microphone"></i>
-                        Keynote Speaker & 4x GSDC Facilitator
-                    </div>
+                <!-- Left Narrative Area -->
+                <div class="lg:col-span-7 space-y-5">
+                    <span class="px-3.5 py-1 rounded-full bg-brand-plum text-white text-xs font-bold uppercase tracking-wider">Slide 04 • Featured Speaking Engagement</span>
 
-                    <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white leading-tight">
-                        Global Thought Leadership: <br><span class="gradient-heading">AI Adoption & Strategic Governance</span>
+                    <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-brand-blushDark leading-tight">
+                        Keynote Speaker & 4x Facilitator on <span class="text-brand-plum font-extrabold">GSDC</span>
                     </h2>
 
-                    <p class="text-sm text-brand-muted leading-relaxed">
-                        Invited by the <strong class="text-white">Global Skill Development Council (GSDC)</strong> as a 4x Facilitator and Keynote Speaker to help executive audiences cut through the hype around AI and establish actionable risk management frameworks.
+                    <p class="text-sm text-brand-blushDark/90 font-medium leading-relaxed">
+                        Invited by the <strong class="text-brand-plum font-bold">Global Skill Development Council (GSDC)</strong> to speak on one of the most critical topics today: <strong>AI adoption and governance</strong>. During the session, I helped a diverse audience cut through the noise around AI and understand how organizations can strategically adopt technology while managing risks.
                     </p>
 
-                    <!-- Session Pillars Card -->
-                    <div class="exec-card p-6 rounded-2xl border border-brand-pink/20 space-y-4">
-                        <h4 class="font-heading font-bold text-white text-sm flex items-center gap-2">
-                            <i class="fa-solid fa-lightbulb text-brand-pink"></i>
-                            Key Topics Addressed in Keynote Sessions
-                        </h4>
+                    <!-- Key Pillars Grid -->
+                    <div class="card-blush p-6 rounded-3xl border-2 border-brand-plum/30 space-y-3 shadow-xl">
+                        <h3 class="font-heading font-bold text-brand-blushDark text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-brand-plum"></i>
+                            Core Topics Addressed in Keynote Sessions:
+                        </h3>
 
                         <div class="grid sm:grid-cols-2 gap-3 text-xs">
-                            <div class="p-3.5 rounded-xl bg-black/40 border border-brand-pink/15">
-                                <div class="font-bold text-brand-pink mb-1">1. AI's Three Core Pillars</div>
-                                <div class="text-brand-muted">Data integrity, risk governance, and human oversight.</div>
+                            <div class="p-3 rounded-xl bg-brand-blushLight border border-brand-plum/20">
+                                <div class="font-bold text-brand-plum">1. AI's Three Core Pillars</div>
+                                <div class="text-brand-blushDark/80 mt-0.5">Data, governance, and human oversight.</div>
                             </div>
-                            <div class="p-3.5 rounded-xl bg-black/40 border border-brand-pink/15">
-                                <div class="font-bold text-brand-pink mb-1">2. Defining the "WHY"</div>
-                                <div class="text-brand-muted">Establishing business necessity before committing capital.</div>
+                            <div class="p-3 rounded-xl bg-brand-blushLight border border-brand-plum/20">
+                                <div class="font-bold text-brand-plum">2. Defining the WHY</div>
+                                <div class="text-brand-blushDark/80 mt-0.5">Establishing strategic necessity before adopting.</div>
                             </div>
-                            <div class="p-3.5 rounded-xl bg-black/40 border border-brand-pink/15">
-                                <div class="font-bold text-brand-pink mb-1">3. Regulatory Awareness</div>
-                                <div class="text-brand-muted">Navigating cross-border compliance & enforcement.</div>
+                            <div class="p-3 rounded-xl bg-brand-blushLight border border-brand-plum/20">
+                                <div class="font-bold text-brand-plum">3. Regulatory Awareness</div>
+                                <div class="text-brand-blushDark/80 mt-0.5">Identifying regulations and enforcement.</div>
                             </div>
-                            <div class="p-3.5 rounded-xl bg-black/40 border border-brand-pink/15">
-                                <div class="font-bold text-brand-pink mb-1">4. ISO 42001 Application</div>
-                                <div class="text-brand-muted">Using AIMS for responsible AI technology adoption.</div>
+                            <div class="p-3 rounded-xl bg-brand-blushLight border border-brand-plum/20">
+                                <div class="font-bold text-brand-plum">4. ISO 42001 Application</div>
+                                <div class="text-brand-blushDark/80 mt-0.5">Flexible, responsible AI adoption.</div>
                             </div>
                         </div>
                     </div>
 
-                    <p class="text-xs text-brand-muted italic leading-relaxed">
+                    <p class="text-xs text-brand-plum font-bold italic">
                         "The goal was simple: help organizations join the AI race without putting their business at unnecessary risk."
                     </p>
                 </div>
 
-                <!-- Right Advisory Spotlight Badge Card -->
+                <!-- Right Spotlight Card -->
                 <div class="lg:col-span-5">
-                    <div class="exec-card rounded-3xl p-8 border border-brand-pink/30 text-center relative overflow-hidden group">
-                        
-                        <div class="w-28 h-28 rounded-2xl bg-gradient-to-br from-brand-magenta to-brand-plum p-0.5 mx-auto mb-6 shadow-xl border border-brand-pink/30 group-hover:scale-105 transition-transform flex items-center justify-center">
-                            <div class="w-full h-full bg-brand-surface rounded-[14px] flex flex-col items-center justify-center p-3 text-center">
-                                <i class="fa-solid fa-award text-3xl text-amber-400 mb-1"></i>
-                                <span class="text-[11px] font-bold text-white uppercase font-heading">GSDC 4X</span>
-                                <span class="text-[9px] text-brand-pink uppercase tracking-wider">Facilitator</span>
-                            </div>
+                    <div class="card-blush rounded-3xl p-8 border-2 border-brand-plum text-center shadow-2xl relative">
+                        <div class="w-24 h-24 rounded-2xl bg-brand-plum text-white mx-auto mb-4 flex flex-col items-center justify-center shadow-lg">
+                            <i class="fa-solid fa-microphone text-2xl mb-1"></i>
+                            <span class="text-[10px] font-bold uppercase font-heading">4X GSDC</span>
+                            <span class="text-[8px] uppercase tracking-wider">Facilitator</span>
                         </div>
 
-                        <h3 class="font-heading font-bold text-xl text-white mb-2">GSDC Knowledge Advisor</h3>
-                        <p class="text-xs text-brand-muted mb-6 leading-relaxed">
-                            Recognized globally for empowering business leaders, engineers, and risk managers to adopt AI strategically with zero governance gaps.
+                        <h3 class="font-heading font-bold text-xl text-brand-blushDark mb-2">Global Skill Development Council</h3>
+                        <p class="text-xs text-brand-blushDark/90 mb-6 font-medium leading-relaxed">
+                            Since my inaugural keynote, I have been invited on multiple occasions to speak on AI adoption, governance, cybersecurity, and the future of technology.
                         </p>
 
-                        <a href="#contact" class="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-magenta to-brand-plum text-white text-xs font-bold uppercase tracking-wider hover:brightness-110 transition-all inline-flex items-center gap-2 border border-brand-pink/30">
-                            <span>Book Keynote Engagement</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        <a href="#slide-7" class="w-full py-3 rounded-xl bg-brand-plum text-white text-xs font-bold uppercase tracking-wider block hover:bg-brand-crimson transition-all shadow-md">
+                            Book Keynote Engagement
                         </a>
                     </div>
                 </div>
@@ -796,107 +679,104 @@
         </div>
     </section>
 
-    <!-- VENTURE SPOTLIGHT: PURPOSEOS SECTION -->
-    <section id="purposeos" class="py-20 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SLIDE 5: VENTURE SPOTLIGHT - PURPOSEOS (Royal Plum Theme - #7F055F) -->
+    <section id="slide-5" class="slide-section slide-plum border-b-4 border-brand-blush">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             
-            <div class="exec-card rounded-3xl p-8 sm:p-12 border border-brand-pink/30 relative overflow-hidden">
-                
+            <div class="card-plum rounded-3xl p-8 sm:p-10 border-2 border-brand-blush shadow-2xl bg-brand-crimson/90">
                 <div class="grid lg:grid-cols-12 gap-8 items-center">
                     
-                    <div class="lg:col-span-8 space-y-5">
+                    <div class="lg:col-span-8 space-y-4">
                         <div class="flex items-center gap-3">
-                            <span class="px-3 py-1 rounded-full bg-brand-pink/20 text-brand-pink text-xs font-bold uppercase tracking-wider border border-brand-pink/30">Foundational Venture</span>
-                            <span class="text-xs text-brand-muted">Practical Technical Learning Platform</span>
+                            <span class="px-3.5 py-1 rounded-full bg-brand-blush text-brand-crimson text-xs font-extrabold uppercase">Slide 05 • Foundational Venture</span>
                         </div>
 
-                        <h3 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">
+                        <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">
                             The PurposeOS Platform
-                        </h3>
+                        </h2>
 
-                        <p class="text-sm text-brand-muted leading-relaxed">
-                            <strong class="text-white">PurposeOS</strong> is a practical learning platform founded by Orifha Joan Thompson, focused on building real-world technical capability in AI Security and Cyber Operations. Beyond theoretical lectures, we learn by doing, documenting execution, and building evidence of practical capability.
+                        <p class="text-sm text-brand-blush/90 leading-relaxed font-medium">
+                            <strong class="text-white">PurposeOS</strong> is a practical cybersecurity and AI learning platform focused on building real-world technical capability founded by Orifha Joan Thompson. At PurposeOS, we believe learning should go beyond theory: <em>we learn by doing, document what we do, and build evidence of practical capability.</em>
                         </p>
 
-                        <!-- Projects Grid -->
-                        <div class="space-y-3 pt-3">
-                            <div class="text-xs font-bold text-white uppercase tracking-wider">Facilitated Hands-on Projects:</div>
+                        <!-- Facilitated Projects Grid -->
+                        <div class="pt-2 space-y-3">
+                            <div class="text-xs font-bold text-brand-blush uppercase tracking-wider">Facilitated Practical Projects:</div>
                             
                             <div class="grid sm:grid-cols-3 gap-3">
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-brand-pink/15">
-                                    <div class="text-xs font-bold text-brand-pink mb-1">AI Cyber Threat Intel</div>
-                                    <p class="text-[11px] text-brand-muted">Investigated & documented AI security incidents from access to persistence.</p>
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-brand-blush/30">
+                                    <div class="text-xs font-bold text-white mb-1">1. AI Threat Intel</div>
+                                    <p class="text-[11px] text-brand-blush/80">Investigated & documented AI security incidents from access to persistence.</p>
                                 </div>
 
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-brand-pink/15">
-                                    <div class="text-xs font-bold text-brand-pink mb-1">Mini SOC Operations</div>
-                                    <p class="text-[11px] text-brand-muted">6 participants operating 2 mini SOC teams with AI-assisted remediation.</p>
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-brand-blush/30">
+                                    <div class="text-xs font-bold text-white mb-1">2. Mini SOC Ops</div>
+                                    <p class="text-[11px] text-brand-blush/80">6 participants across 2 teams operating SOC mini-environments & remediation.</p>
                                 </div>
 
-                                <div class="p-3.5 rounded-xl bg-black/40 border border-brand-pink/15">
-                                    <div class="text-xs font-bold text-brand-pink mb-1">Enterprise AI Risk Register</div>
-                                    <p class="text-[11px] text-brand-muted">Applied ISO 42001 principles to construct risk registers for simulated organizations.</p>
+                                <div class="p-3.5 rounded-xl bg-black/40 border border-brand-blush/30">
+                                    <div class="text-xs font-bold text-white mb-1">3. AI Risk Registers</div>
+                                    <p class="text-[11px] text-brand-blush/80">Constructed ISO 42001 risk registers for fictional enterprise organizations.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right Venture Action Card -->
-                    <div class="lg:col-span-4 text-center lg:text-right space-y-4">
-                        <div class="p-6 rounded-2xl bg-black/40 border border-brand-pink/20 text-center">
-                            <i class="fa-solid fa-laptop-code text-3xl text-brand-pink mb-3"></i>
-                            <h4 class="font-heading font-bold text-white text-base">Learn By Doing</h4>
-                            <p class="text-xs text-brand-muted mt-1 mb-4 leading-relaxed">Building verified technical evidence, documentation, and operational capability.</p>
-                            <a href="#contact" class="w-full py-2.5 rounded-xl bg-brand-plum hover:bg-brand-magenta text-white text-xs font-bold uppercase tracking-wider block transition-all border border-brand-pink/30">
+                    <!-- Right Column -->
+                    <div class="lg:col-span-4">
+                        <div class="p-6 rounded-2xl bg-brand-plum border border-brand-blush/40 text-center space-y-3 shadow-xl">
+                            <i class="fa-solid fa-laptop-code text-3xl text-brand-blush"></i>
+                            <h3 class="font-heading font-bold text-white text-base">Learn By Doing</h3>
+                            <p class="text-xs text-brand-blush/90 font-medium">Building real-world technical evidence and operational security capability.</p>
+                            <a href="#slide-7" class="w-full py-2.5 rounded-xl bg-brand-blush text-brand-crimson text-xs font-bold uppercase tracking-wider block hover:bg-white transition-all">
                                 Partner with PurposeOS
                             </a>
                         </div>
                     </div>
 
                 </div>
-
             </div>
 
         </div>
     </section>
 
-    <!-- THOUGHT LEADERSHIP & PUBLICATIONS SECTION -->
-    <section id="insights" class="py-20 relative bg-brand-surface/40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SLIDE 6: THOUGHT LEADERSHIP & PUBLICATIONS (Blush Pop Theme - #E5A4CB) -->
+    <section id="slide-6" class="slide-section slide-blush border-b-4 border-brand-plum">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-bold text-brand-pink uppercase tracking-widest mb-2">Publications & Articles</h2>
-                <h3 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">
-                    Thought Leadership & Newsletter
-                </h3>
-                <p class="text-xs sm:text-sm text-brand-muted mt-2">
-                    Actionable write-ups on AI-driven strategies, threat intelligence, and executive technology governance.
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="px-3.5 py-1 rounded-full bg-brand-plum text-white text-xs font-bold uppercase tracking-wider">Slide 06 • Insights & Publications</span>
+                <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-brand-blushDark mt-3">
+                    Thought Leadership & Publications
+                </h2>
+                <p class="text-xs sm:text-sm text-brand-blushDark/90 mt-2 font-medium">
+                    Briefings on AI-driven strategies, threat intelligence, and executive technology governance.
                 </p>
-                <div class="h-1 w-16 bg-gradient-to-r from-brand-magenta to-brand-pink mx-auto mt-4 rounded-full"></div>
+                <div class="h-1.5 w-20 bg-brand-plum mx-auto mt-3 rounded-full"></div>
             </div>
 
             <div class="grid lg:grid-cols-12 gap-8">
                 
                 <!-- LinkedIn Newsletter Card -->
-                <div class="lg:col-span-5 exec-card p-8 rounded-3xl border border-brand-pink/30 flex flex-col justify-between">
+                <div class="lg:col-span-5 card-blush p-8 rounded-3xl border-2 border-brand-plum/30 flex flex-col justify-between shadow-xl">
                     <div>
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 rounded-xl bg-blue-600/30 text-blue-400 flex items-center justify-center text-xl border border-blue-500/30">
+                            <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xl font-bold">
                                 <i class="fa-brands fa-linkedin"></i>
                             </div>
                             <div>
-                                <span class="text-[10px] text-brand-pink uppercase font-mono tracking-wider">LinkedIn Newsletter</span>
-                                <h4 class="font-heading font-bold text-xl text-white">The CyberNerd Hub</h4>
+                                <span class="text-[10px] text-brand-plum uppercase font-mono font-bold">LinkedIn Newsletter</span>
+                                <h3 class="font-heading font-bold text-xl text-brand-blushDark">The CyberNerd Hub</h3>
                             </div>
                         </div>
 
-                        <p class="text-xs text-brand-muted leading-relaxed mb-6">
+                        <p class="text-xs text-brand-blushDark/90 font-medium leading-relaxed mb-5">
                             "The hub for AI-driven strategies to guide secure and informed business choices." Executive briefings covering emerging AI risks, ISO standards, and decision-making frameworks.
                         </p>
 
-                        <div class="p-4 rounded-xl bg-black/40 border border-brand-pink/15 space-y-2 mb-6">
-                            <div class="text-xs font-bold text-white">Featured Focus Areas:</div>
-                            <ul class="text-[11px] text-brand-muted space-y-1">
+                        <div class="p-4 rounded-xl bg-brand-blushLight border border-brand-plum/20 space-y-1.5 mb-6">
+                            <div class="text-xs font-bold text-brand-plum">Featured Focus:</div>
+                            <ul class="text-[11px] text-brand-blushDark/80 font-medium space-y-1">
                                 <li>• Evaluating AI tools for executive sign-off</li>
                                 <li>• Implementing ISO 42001 & ISO 27001</li>
                                 <li>• Translating SOC metrics for board members</li>
@@ -904,78 +784,60 @@
                         </div>
                     </div>
 
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-brand-magenta text-white text-xs font-bold text-center uppercase tracking-wider block hover:brightness-110 transition-all flex items-center justify-center gap-2 border border-brand-pink/20">
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-brand-plum text-white text-xs font-bold text-center uppercase tracking-wider block hover:bg-brand-crimson transition-all flex items-center justify-center gap-2">
                         <span>Subscribe on LinkedIn</span>
                         <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                     </a>
                 </div>
 
-                <!-- Medium Articles Showcase Card -->
-                <div class="lg:col-span-7 exec-card p-8 rounded-3xl border border-brand-pink/30 flex flex-col justify-between">
+                <!-- Medium Profile Card -->
+                <div class="lg:col-span-7 card-blush p-8 rounded-3xl border-2 border-brand-plum/30 flex flex-col justify-between shadow-xl">
                     <div>
-                        <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center justify-between mb-5">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center text-xl border border-white/20">
+                                <div class="w-10 h-10 rounded-xl bg-brand-blushDark text-white flex items-center justify-center text-xl font-bold">
                                     <i class="fa-brands fa-medium"></i>
                                 </div>
                                 <div>
-                                    <span class="text-[10px] text-brand-pink uppercase font-mono tracking-wider">Medium Publication</span>
-                                    <h4 class="font-heading font-bold text-xl text-white">Joanorifha on Medium</h4>
+                                    <span class="text-[10px] text-brand-plum uppercase font-mono font-bold">Medium Publication</span>
+                                    <h3 class="font-heading font-bold text-xl text-brand-blushDark">Joanorifha on Medium</h3>
                                 </div>
                             </div>
-                            <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-pink hover:underline font-semibold flex items-center gap-1">
+                            <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-plum font-bold hover:underline flex items-center gap-1">
                                 Read Profile <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </a>
                         </div>
 
-                        <div class="space-y-3.5">
-                            <!-- Article Item 1 -->
-                            <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="block p-4 rounded-2xl bg-black/40 border border-brand-pink/15 hover:border-brand-pink/40 transition-all group">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="text-[10px] text-brand-pink font-mono">AI Governance & Strategy</span>
-                                    <i class="fa-solid fa-chevron-right text-xs text-brand-muted group-hover:text-brand-pink group-hover:translate-x-1 transition-all"></i>
-                                </div>
-                                <h5 class="font-heading font-bold text-sm text-white group-hover:text-brand-pink transition-colors">
+                        <div class="space-y-3">
+                            <!-- Article 1 -->
+                            <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="block p-4 rounded-2xl bg-brand-blushLight border border-brand-plum/20 hover:border-brand-plum transition-all group">
+                                <span class="text-[10px] text-brand-plum font-mono font-bold">AI Governance & Strategy</span>
+                                <h4 class="font-heading font-bold text-sm text-brand-blushDark group-hover:text-brand-plum transition-colors mt-0.5">
                                     Navigating ISO 42001: Practical AI Governance for Modern Enterprises
-                                </h5>
-                                <p class="text-[11px] text-brand-muted mt-1">
-                                    Translating Artificial Intelligence Management Systems into operational executive steps.
-                                </p>
+                                </h4>
                             </a>
 
-                            <!-- Article Item 2 -->
-                            <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="block p-4 rounded-2xl bg-black/40 border border-brand-pink/15 hover:border-brand-pink/40 transition-all group">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="text-[10px] text-brand-pink font-mono">Cyber Risk Advisory</span>
-                                    <i class="fa-solid fa-chevron-right text-xs text-brand-muted group-hover:text-brand-pink group-hover:translate-x-1 transition-all"></i>
-                                </div>
-                                <h5 class="font-heading font-bold text-sm text-white group-hover:text-brand-pink transition-colors">
+                            <!-- Article 2 -->
+                            <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="block p-4 rounded-2xl bg-brand-blushLight border border-brand-plum/20 hover:border-brand-plum transition-all group">
+                                <span class="text-[10px] text-brand-plum font-mono font-bold">Cyber Risk Advisory</span>
+                                <h4 class="font-heading font-bold text-sm text-brand-blushDark group-hover:text-brand-plum transition-colors mt-0.5">
                                     From Banking Risk to Defensive Cyber: A Business-First Approach
-                                </h5>
-                                <p class="text-[11px] text-brand-muted mt-1">
-                                    Why cybersecurity investments fail when disconnected from fundamental business return.
-                                </p>
+                                </h4>
                             </a>
 
-                            <!-- Article Item 3 -->
-                            <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="block p-4 rounded-2xl bg-black/40 border border-brand-pink/15 hover:border-brand-pink/40 transition-all group">
-                                <div class="flex justify-between items-start mb-1">
-                                    <span class="text-[10px] text-brand-pink font-mono">AI Threat Operations</span>
-                                    <i class="fa-solid fa-chevron-right text-xs text-brand-muted group-hover:text-brand-pink group-hover:translate-x-1 transition-all"></i>
-                                </div>
-                                <h5 class="font-heading font-bold text-sm text-white group-hover:text-brand-pink transition-colors">
+                            <!-- Article 3 -->
+                            <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="block p-4 rounded-2xl bg-brand-blushLight border border-brand-plum/20 hover:border-brand-plum transition-all group">
+                                <span class="text-[10px] text-brand-plum font-mono font-bold">AI Threat Operations</span>
+                                <h4 class="font-heading font-bold text-sm text-brand-blushDark group-hover:text-brand-plum transition-colors mt-0.5">
                                     Threat Hunting in the Age of Generative AI & Prompt Injection
-                                </h5>
-                                <p class="text-[11px] text-brand-muted mt-1">
-                                    Adapting incident response playbooks for AI-assisted attack vectors.
-                                </p>
+                                </h4>
                             </a>
                         </div>
                     </div>
 
-                    <div class="pt-6 border-t border-white/10 mt-6 text-center">
-                        <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-muted hover:text-white font-medium inline-flex items-center gap-2">
-                            <span>Explore full library on Medium</span>
+                    <div class="pt-4 border-t border-brand-plum/10 mt-4 text-center">
+                        <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="text-xs text-brand-plum font-bold inline-flex items-center gap-2 hover:underline">
+                            <span>Explore full publication on Medium</span>
                             <i class="fa-solid fa-external-link text-[10px]"></i>
                         </a>
                     </div>
@@ -986,123 +848,123 @@
         </div>
     </section>
 
-    <!-- CONTACT & CONSULTATION SECTION -->
-    <section id="contact" class="py-20 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- SLIDE 7: CONTACT & EXECUTIVE ADVISORY (Royal Plum Theme - #7F055F) -->
+    <section id="slide-7" class="slide-section slide-plum">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-xs font-bold text-brand-pink uppercase tracking-widest mb-2">Initiate Engagement</h2>
-                <h3 class="font-heading font-extrabold text-3xl sm:text-4xl text-white">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="px-3.5 py-1 rounded-full bg-brand-crimson text-brand-blush text-xs font-bold uppercase tracking-wider border border-brand-blush/40">Slide 07 • Initiate Engagement</span>
+                <h2 class="font-heading font-extrabold text-3xl sm:text-4xl text-white mt-3">
                     Let's Build Secure, Strategic & Profitable Technology
-                </h3>
-                <p class="text-xs sm:text-sm text-brand-muted mt-2">
+                </h2>
+                <p class="text-xs sm:text-sm text-brand-blush/90 mt-2 font-medium">
                     Available for executive advisory calls, ISO 42001 guidance, keynote speaking engagements, and enterprise AI security assessments.
                 </p>
-                <div class="h-1 w-16 bg-gradient-to-r from-brand-magenta to-brand-pink mx-auto mt-4 rounded-full"></div>
+                <div class="h-1.5 w-20 bg-brand-blush mx-auto mt-3 rounded-full"></div>
             </div>
 
-            <div class="grid lg:grid-cols-12 gap-12 items-start">
+            <div class="grid lg:grid-cols-12 gap-10 items-start">
                 
-                <!-- Left Column: Direct Contact Information -->
-                <div class="lg:col-span-5 space-y-6">
-                    <div class="exec-card p-6 rounded-2xl border border-brand-pink/30 space-y-4">
-                        <h4 class="font-heading font-bold text-white text-lg">Direct Contact Points</h4>
-                        <p class="text-xs text-brand-muted">Click below to copy verified contact details to your clipboard:</p>
+                <!-- Direct Contact Information Column -->
+                <div class="lg:col-span-5 space-y-5">
+                    <div class="card-plum p-6 rounded-2xl border-2 border-brand-blush space-y-4 bg-brand-crimson/90">
+                        <h3 class="font-heading font-bold text-white text-lg">Direct Contact Points</h3>
+                        <p class="text-xs text-brand-blush/90">Click below to copy verified contact details to clipboard:</p>
 
-                        <!-- Email Action Pill -->
-                        <div class="p-4 rounded-xl bg-black/40 border border-brand-pink/20 flex items-center justify-between group cursor-pointer hover:border-brand-pink/50 transition-all" onclick="copyToClipboard('joanorifha@gmail.com', 'Email copied to clipboard!')">
+                        <!-- Email Action Card -->
+                        <div class="p-4 rounded-xl bg-black/40 border border-brand-blush/30 flex items-center justify-between cursor-pointer hover:border-brand-blush transition-all" onclick="copyToClipboard('joanorifha@gmail.com', 'Email copied to clipboard!')">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-brand-magenta/30 flex items-center justify-center text-brand-pink border border-brand-pink/20">
-                                    <i class="fa-regular fa-envelope text-lg"></i>
+                                <div class="w-10 h-10 rounded-lg bg-brand-blush text-brand-crimson flex items-center justify-center text-lg font-bold">
+                                    <i class="fa-regular fa-envelope"></i>
                                 </div>
                                 <div>
-                                    <div class="text-[10px] text-brand-pink font-mono uppercase">Direct Email</div>
+                                    <div class="text-[10px] text-brand-blush font-mono font-bold uppercase">Direct Email</div>
                                     <div class="text-sm font-semibold text-white">joanorifha@gmail.com</div>
                                 </div>
                             </div>
-                            <button class="px-3 py-1.5 rounded-lg bg-brand-plum text-brand-pink text-xs hover:bg-brand-magenta hover:text-white transition-all font-mono">
+                            <button class="px-3 py-1.5 rounded-lg bg-brand-plum text-brand-blush text-xs font-bold font-mono hover:bg-brand-blush hover:text-brand-crimson transition-all">
                                 Copy
                             </button>
                         </div>
 
-                        <!-- Phone Action Pill -->
-                        <div class="p-4 rounded-xl bg-black/40 border border-brand-pink/20 flex items-center justify-between group cursor-pointer hover:border-brand-pink/50 transition-all" onclick="copyToClipboard('09131491313', 'Phone number copied to clipboard!')">
+                        <!-- Phone Action Card -->
+                        <div class="p-4 rounded-xl bg-black/40 border border-brand-blush/30 flex items-center justify-between cursor-pointer hover:border-brand-blush transition-all" onclick="copyToClipboard('09134130111', 'Phone number copied to clipboard!')">
                             <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-brand-magenta/30 flex items-center justify-center text-brand-pink border border-brand-pink/20">
-                                    <i class="fa-solid fa-phone text-lg"></i>
+                                <div class="w-10 h-10 rounded-lg bg-brand-blush text-brand-crimson flex items-center justify-center text-lg font-bold">
+                                    <i class="fa-solid fa-phone"></i>
                                 </div>
                                 <div>
-                                    <div class="text-[10px] text-brand-pink font-mono uppercase">Phone / WhatsApp</div>
-                                    <div class="text-sm font-semibold text-white">09131491313</div>
+                                    <div class="text-[10px] text-brand-blush font-mono font-bold uppercase">Phone / WhatsApp</div>
+                                    <div class="text-sm font-semibold text-white">09134130111</div>
                                 </div>
                             </div>
-                            <button class="px-3 py-1.5 rounded-lg bg-brand-plum text-brand-pink text-xs hover:bg-brand-magenta hover:text-white transition-all font-mono">
+                            <button class="px-3 py-1.5 rounded-lg bg-brand-plum text-brand-blush text-xs font-bold font-mono hover:bg-brand-blush hover:text-brand-crimson transition-all">
                                 Copy
                             </button>
                         </div>
 
-                        <!-- Quick Social Links -->
-                        <div class="pt-4 border-t border-white/10 grid grid-cols-2 gap-3">
-                            <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-black/40 border border-brand-pink/15 text-center block text-xs text-white hover:text-brand-pink transition-colors">
+                        <!-- Social Buttons -->
+                        <div class="pt-3 border-t border-brand-blush/20 grid grid-cols-2 gap-3">
+                            <a href="https://medium.com/@Joanorifha" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-black/40 border border-brand-blush/30 text-center text-xs text-white hover:text-brand-blush transition-colors font-bold">
                                 <i class="fa-brands fa-medium mr-1.5"></i> Medium Profile
                             </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-black/40 border border-brand-pink/15 text-center block text-xs text-white hover:text-brand-pink transition-colors">
+                            <a href="https://www.linkedin.com/in/orifha-joan/" target="_blank" rel="noopener noreferrer" class="p-3 rounded-xl bg-black/40 border border-brand-blush/30 text-center text-xs text-white hover:text-brand-blush transition-colors font-bold">
                                 <i class="fa-brands fa-linkedin mr-1.5"></i> LinkedIn Hub
                             </a>
                         </div>
                     </div>
 
-                    <!-- Confidentiality Promise -->
-                    <div class="exec-card p-6 rounded-2xl border border-brand-pink/20 bg-brand-plum/20">
-                        <div class="flex items-center gap-3 mb-2">
-                            <i class="fa-solid fa-shield-cat text-brand-pink text-lg"></i>
-                            <h5 class="font-heading font-bold text-white text-sm">Advisory Confidentiality</h5>
+                    <!-- Non-Disclosure Notice -->
+                    <div class="card-plum p-5 rounded-2xl border border-brand-blush/40 bg-brand-crimson/80">
+                        <div class="flex items-center gap-2.5 mb-1.5">
+                            <i class="fa-solid fa-shield-halved text-brand-blush text-base"></i>
+                            <h4 class="font-heading font-bold text-white text-xs">Advisory Non-Disclosure Standards</h4>
                         </div>
-                        <p class="text-xs text-brand-muted leading-relaxed">
-                            All discussions regarding AI deployment, security audits, and executive strategy are conducted under non-disclosure governance standards.
+                        <p class="text-[11px] text-brand-blush/80 leading-relaxed font-medium">
+                            All discussions regarding corporate AI deployment, security audits, and executive technology strategy are conducted under strict non-disclosure governance.
                         </p>
                     </div>
                 </div>
 
-                <!-- Right Column: Interactive Form -->
+                <!-- Form Column -->
                 <div class="lg:col-span-7">
-                    <form id="contact-form" class="exec-card p-8 rounded-3xl border border-brand-pink/30 space-y-5 shadow-2xl" onsubmit="handleFormSubmit(event)">
-                        <h4 class="font-heading font-bold text-xl text-white mb-2">Schedule Strategy Consultation</h4>
+                    <form id="contact-form" class="card-plum p-8 rounded-3xl border-2 border-brand-blush space-y-4 shadow-2xl bg-brand-crimson/90" onsubmit="handleFormSubmit(event)">
+                        <h3 class="font-heading font-bold text-xl text-white mb-1">Schedule Consultation</h3>
                         
                         <div class="grid sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-semibold text-brand-muted mb-1">Full Name *</label>
-                                <input type="text" required placeholder="e.g. Sarah Jenkins" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-pink/20 text-white placeholder-white/20 text-sm focus:outline-none focus:border-brand-pink transition-all">
+                                <label class="block text-xs font-bold text-brand-blush mb-1">Full Name *</label>
+                                <input type="text" name="name" required placeholder="e.g. Orifha Iherete" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-blush/30 text-white placeholder-white/30 text-sm focus:outline-none focus:border-brand-blush transition-all">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-brand-muted mb-1">Email Address *</label>
-                                <input type="email" required placeholder="e.g. sarah@company.com" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-pink/20 text-white placeholder-white/20 text-sm focus:outline-none focus:border-brand-pink transition-all">
+                                <label class="block text-xs font-bold text-brand-blush mb-1">Email Address *</label>
+                                <input type="email" name="email" required placeholder="e.g. Iherete@company.com" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-blush/30 text-white placeholder-white/30 text-sm focus:outline-none focus:border-brand-blush transition-all">
                             </div>
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-semibold text-brand-muted mb-1">Organization / Title</label>
-                                <input type="text" placeholder="e.g. CEO @ TechCorp" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-pink/20 text-white placeholder-white/20 text-sm focus:outline-none focus:border-brand-pink transition-all">
+                                <label class="block text-xs font-bold text-brand-blush mb-1">Organization / Title</label>
+                                <input type="text" name="organization" placeholder="e.g. CEO @ TechCorp" class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-blush/30 text-white placeholder-white/30 text-sm focus:outline-none focus:border-brand-blush transition-all">
                             </div>
                             <div>
-                                <label class="block text-xs font-semibold text-brand-muted mb-1">Area of Inquiry *</label>
-                                <select required class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-pink/20 text-white text-sm focus:outline-none focus:border-brand-pink transition-all">
-                                    <option value="" disabled selected class="bg-brand-base">Select Engagement</option>
-                                    <option value="AI Governance & ISO 42001" class="bg-brand-base">AI Governance & ISO 42001 Audit</option>
-                                    <option value="Cyber Risk & Strategy" class="bg-brand-base">Cyber Risk & Business Strategy</option>
-                                    <option value="Keynote Speaking" class="bg-brand-base">GSDC / Keynote Facilitation</option>
-                                    <option value="PurposeOS Partnership" class="bg-brand-base">PurposeOS Project Collaboration</option>
+                                <label class="block text-xs font-bold text-brand-blush mb-1">Area of Engagement *</label>
+                                <select name="category" required class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-blush/30 text-white text-sm focus:outline-none focus:border-brand-blush transition-all">
+                                    <option value="" disabled selected class="bg-brand-crimson">Select Category</option>
+                                    <option value="AI Governance & ISO 42001" class="bg-brand-crimson">AI Governance & ISO 42001 Audit</option>
+                                    <option value="Cyber Risk & Strategy" class="bg-brand-crimson">Cyber Risk & Business Strategy</option>
+                                    <option value="Keynote Speaking" class="bg-brand-crimson">GSDC / Keynote Facilitation</option>
+                                    <option value="PurposeOS Partnership" class="bg-brand-crimson">PurposeOS Project Partnership</option>
                                 </select>
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-semibold text-brand-muted mb-1">Brief Overview of Inquiry *</label>
-                            <textarea required rows="4" placeholder="Briefly describe what your organization is adopting and how I can assist..." class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-pink/20 text-white placeholder-white/20 text-sm focus:outline-none focus:border-brand-pink transition-all"></textarea>
+                            <label class="block text-xs font-bold text-brand-blush mb-1">Brief Overview of Inquiry *</label>
+                            <textarea name="message" required rows="4" placeholder="Briefly describe what your organization is adopting and how I can assist..." class="w-full px-4 py-3 rounded-xl bg-black/50 border border-brand-blush/30 text-white placeholder-white/30 text-sm focus:outline-none focus:border-brand-blush transition-all"></textarea>
                         </div>
 
-                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-magenta via-brand-plum to-brand-magenta text-white font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-xl shadow-brand-magenta/30 flex items-center justify-center gap-2 border border-brand-pink/30">
+                        <button type="submit" class="w-full py-4 rounded-xl bg-brand-blush text-brand-crimson font-extrabold text-xs uppercase tracking-wider hover:bg-white transition-all shadow-xl flex items-center justify-center gap-2">
                             <span>Submit Advisory Request</span>
                             <i class="fa-solid fa-paper-plane text-xs"></i>
                         </button>
@@ -1115,36 +977,33 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="py-12 border-t border-white/10 bg-black/80 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            
+    <footer class="py-8 border-t-2 border-brand-blush/30 bg-brand-crimson relative text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-brand-magenta flex items-center justify-center font-heading font-bold text-white text-sm border border-brand-pink/30">
+                <div class="w-8 h-8 rounded-lg bg-brand-blush text-brand-crimson font-extrabold flex items-center justify-center text-sm">
                     OJ
                 </div>
                 <div>
                     <span class="font-heading font-bold text-sm text-white block">Orifha Joan Thompson (Iherete)</span>
-                    <span class="text-[11px] text-brand-muted">Technology, AI Governance & Cyber Strategy Advisory</span>
+                    <span class="text-[10px] text-brand-blush">Technology, AI Governance & Cyber Advisory</span>
                 </div>
             </div>
 
-            <div class="text-xs text-brand-muted text-center md:text-right">
-                &copy; <span id="current-year">2026</span> Orifha Joan Thompson. All rights reserved. Designed for GitHub Pages.
+            <div class="text-xs text-brand-blush/80 text-center md:text-right font-medium">
+                &copy; <span id="current-year">2026</span> Orifha Joan Thompson. All rights reserved.
             </div>
-
         </div>
     </footer>
 
-    <!-- Toast Notification Container -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 exec-card px-5 py-3.5 rounded-xl border border-brand-pink/40 text-white text-xs font-semibold shadow-2xl flex items-center gap-3 bg-brand-plum/90">
-        <i class="fa-solid fa-circle-check text-emerald-400 text-lg" id="toast-icon"></i>
+    <!-- Custom Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 card-plum px-5 py-3.5 rounded-xl border-2 border-brand-blush text-white text-xs font-bold shadow-2xl flex items-center gap-3 bg-brand-crimson">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
         <span id="toast-message">Copied to clipboard!</span>
     </div>
 
     <!-- JavaScript Handlers -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            
             // Set dynamic current year in footer
             document.getElementById('current-year').textContent = new Date().getFullYear();
 
@@ -1170,12 +1029,12 @@
             filterBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     filterBtns.forEach(b => {
-                        b.classList.remove('active', 'bg-brand-magenta', 'text-white', 'shadow-md');
-                        b.classList.add('exec-card', 'text-brand-muted');
+                        b.classList.remove('active', 'bg-brand-blush', 'text-brand-crimson', 'shadow-lg');
+                        b.classList.add('card-plum', 'text-brand-blush');
                     });
                     
-                    btn.classList.add('active', 'bg-brand-magenta', 'text-white', 'shadow-md');
-                    btn.classList.remove('exec-card', 'text-brand-muted');
+                    btn.classList.add('active', 'bg-brand-blush', 'text-brand-crimson', 'shadow-lg');
+                    btn.classList.remove('card-plum', 'text-brand-blush');
 
                     const filterValue = btn.getAttribute('data-filter');
 
@@ -1189,6 +1048,36 @@
                 });
             });
         });
+
+        // Robust Cascading Image Error Handler
+        function handleImgError(img) {
+            const fallbackSources = [
+                'Professional headshot.jpeg',
+                'image.png',
+                'profile.jpg',
+                'headshot.jpg',
+                'Professional headshot.jpg'
+            ];
+            
+            let attempts = parseInt(img.getAttribute('data-attempts') || '0');
+            
+            if (attempts < fallbackSources.length) {
+                img.setAttribute('data-attempts', (attempts + 1).toString());
+                img.src = fallbackSources[attempts];
+            } else {
+                // If no local image file matches, render SVG avatar frame
+                const parent = img.parentElement;
+                parent.innerHTML = `
+                    <div class="w-full h-full flex flex-col items-center justify-center bg-brand-crimson p-6 text-center">
+                        <div class="w-24 h-24 rounded-full bg-brand-blush text-brand-crimson flex items-center justify-center text-3xl font-heading font-extrabold mb-3 border-2 border-white shadow-lg">
+                            OJT
+                        </div>
+                        <h3 class="font-heading font-bold text-white text-sm">Orifha Joan Thompson</h3>
+                        <p class="text-[10px] text-brand-blush font-semibold mt-1">Technology & AI Governance Strategist</p>
+                    </div>
+                `;
+            }
+        }
 
         // Copy to clipboard helper function using execCommand for sandbox safety
         function copyToClipboard(text, message) {
@@ -1215,11 +1104,61 @@
             }, 3000);
         }
 
-        // Contact Form Handler
-        function handleFormSubmit(e) {
+        // Contact Form Handler with FormSubmit AJAX Dispatch
+        async function handleFormSubmit(e) {
             e.preventDefault();
-            showToast('Thank you! Your strategy inquiry has been submitted.');
-            e.target.reset();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+
+            // Display loading spinner
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<span>Sending...</span> <i class="fa-solid fa-spinner fa-spin text-xs"></i>`;
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Set email subject & disable captcha redirect for AJAX endpoint
+            data['_subject'] = `New Executive Advisory Inquiry: ${data.category || 'General'}`;
+            data['_captcha'] = 'false';
+
+            try {
+                const response = await fetch("https://formsubmit.co/ajax/joanorifha@gmail.com", {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    showToast('Success! Your advisory request has been emailed to Orifha.');
+                    form.reset();
+                } else {
+                    // Fallback to client mail application if service responds with error
+                    openMailtoFallback(data);
+                    showToast('Opening mail application to complete booking...');
+                    form.reset();
+                }
+            } catch (err) {
+                // Fallback on network or CORS restrictions
+                openMailtoFallback(data);
+                showToast('Opening mail application to complete booking...');
+                form.reset();
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        }
+
+        // Helper function for mailto fallback
+        function openMailtoFallback(data) {
+            const subject = encodeURIComponent(`Advisory Consultation Request: ${data.category || 'General'}`);
+            const body = encodeURIComponent(
+                `Full Name: ${data.name || ''}\nEmail: ${data.email || ''}\nOrganization: ${data.organization || ''}\nArea of Interest: ${data.category || ''}\n\nInquiry Details:\n${data.message || ''}`
+            );
+            window.location.href = `mailto:joanorifha@gmail.com?subject=${subject}&body=${body}`;
         }
     </script>
 </body>
